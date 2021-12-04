@@ -10,6 +10,7 @@ Controler turns heat in the rice cooker and tells the French Chef Joke of the da
 It makes announcements about the temperature (reached, temperature swings) 
 Camera monitors the area of cooking and sends progress pictures over the internet ...
 
+![image](./souse-vide.png)
 
 ## Assignment Submission
 
