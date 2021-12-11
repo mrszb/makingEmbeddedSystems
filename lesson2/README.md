@@ -31,9 +31,11 @@ and template you did, be prepared to talk about this board in Live Class
 
 Selected Platform: DISCO-F746NG ([User Manual](https://www.st.com/resource/en/user_manual/um1907-discovery-kit-for-stm32f7-series-with-stm32f746ng-mcu-stmicroelectronics.pdf))
 
-([mbed link](https://os.mbed.com/platforms/ST-Discovery-F746NG/))
+[arm MBED link](https://os.mbed.com/platforms/ST-Discovery-F746NG/)
 
-![image](./mbed-lcd.png)
+### Hardware block diagram from page 9 of the User Manual
+![image](./platform.png)
+
 
 
 
@@ -41,4 +43,4 @@ It's 2021/2022.
 I chose this platform because it is one of the boards I already have somwhere at home in an unopened box.
 It has way too many features, ime to try them out. 
 Everyone else can go to mouser.com and ponder about 53 weeks lead time !
-[mouser]https://www.mouser.com/ProductDetail/511-STM32F746G-DISCO
+[Mouser](https://www.mouser.com/ProductDetail/511-STM32F746G-DISCO)
