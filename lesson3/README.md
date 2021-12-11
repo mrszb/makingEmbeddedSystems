@@ -1,9 +1,11 @@
 # Exercise 3
-1. Investigate project board
+## 1. Investigate project board
 Look at the documents for the board you are considering for your final project (or any ST Discovery Board), draw the hardware block diagram for the board. For peripherals, note the
 communication paths (SPI, I2C, etc).
 
 ![image](./top_layout.png)
+
+![image](./board.png)
 
 Look at the datasheet for the processor and other documents. Answer these questions:
  
@@ -58,3 +60,24 @@ Look at the datasheet for the processor and other documents. Answer these questi
 [^4]: AN3216 Getting started with STM32L1xxx hardware development 
 
 [^5]: AN4312 Design with surface sensors for touch sensing applications on MCUs
+
+
+## 2. SPI Flash Test Code
+Unfortunately, the SPI Flash we need to test the Key-Value storage system is on backorder. The
+KVStore only uses the read, write, and erase functions from the SPI Flash subsystem. Create a
+small simulator so you can test the KVStore. Write a test for your simulator that uses the read,
+write and erase functions.
+Here is the SPI Flash information.
+https://www.digikey.com/en/products/detail/winbond-electronics/W25Q80DVSNIG-TR/5154948
+
+We are going to use ST’s Standard Peripheral Flash Driver so here is the header file for the
+code you will need to simulate:
+https://drive.google.com/file/d/12dw-pZiKiK1vi4gv49W1x6np5uzCH_cV/view?usp=sharing
+Your assignment is to create a small module that compiles and runs on your computer that
+implements your flash simulator. You will also need a main file to test out your simulator.
+Important notes: You don’t need a full Flash simulator, only what is necessary to test the
+KVStore code. You aren’t writing the KVStore code. You do not need to use CPPUTest or other
+unit test framework. If you are writing more than 50 lines of code, you are going in the wrong
+direction.
+
+[see emulation here](https://github.com/mrszb/spi_flash_simulation)
