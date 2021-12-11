@@ -10,11 +10,13 @@ Look at the datasheet for the processor and other documents. Answer these questi
 * **What kind of processor is it?**
 
   - STM32L-DISCOVERY/newer 32L152CDISCOVERY board has **STM32L152RBT6**/**STM32L152RCT6** CPU which is low power ARM M3 32 bit processor operating at 32 MHz[^1] [^2].
+  can turn off Flash and CPU (large consuption contribution) and keep DMA and peripherals working.
+  Board is designed to run from a CR2032 standalone battery.
 
 
 * **How much Flash and RAM does it have? Any other memory types?**
 
-    - 128K/256K bytes of Flash ("medium/+ density device") and 16 Kbytes of RAM
+    - 128K/256K bytes of Flash ("medium/+ density device") and 16/32 Kbytes of RAM
     - 4 Kbytes of EEPROM
     - 80 byte backup register as part of the real-time clock
 
