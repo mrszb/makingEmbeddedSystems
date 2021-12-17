@@ -7,4 +7,6 @@ What are the hardware registers that cause the LED to turn on and off? (From the
 
 I do not have final board yet but I found "Blue Pill" board and tried my first ARM bare metal programming ...
 
-[see progress here](https://github.com/mrszb/blue_pill_button_blinky)
+[->see project repo here<-](https://github.com/mrszb/blue_pill_button_blinky)
+
+![image](./debug_sys_tick.png)
