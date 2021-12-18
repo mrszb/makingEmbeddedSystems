@@ -125,3 +125,62 @@ else
 }
 
 ```
+# Button events 
+Latest version has circular queue storing events.
+
+
+```
+typedef enum BtnActions {BTN_UP = 1, BTN_DOWN = 2} BtnAction;
+
+typedef struct BtnEvents
+{
+	BtnAction action;
+	uint32_t systick_time;
+} BtnEvent;
+
+
+#define KeybQLen  10
+volatile BtnEvent evtQueue[KeybQLen];
+volatile BtnEvent *pQOut,*pQIn;
+```
+Interrupt routine pushes them in ..
+
+```
+	if ( newEvt.action !=0 )
+	{
+		*pQIn = newEvt;
+		newEvt.systick_time = systick_uptime_millis;
+		BtnEvent *pNextQIn = (pQIn >= evtQueue+KeybQLen-1) ?
+		    evtQueue : pQIn+1;
+
+		if (pNextQIn != pQOut)
+			pQIn = pNextQIn;
+	}
+
+```
+
+... query_btn_event pops them out in the main program.
+
+```
+bool query_btn_event(BtnEvent* evt)
+{
+#if GENERATES_EVENTS
+	// get oldest event out of keyboard queue
+	//__disable_irq();
+
+	if (pQOut == pQIn)
+		return false;
+
+	*evt = *pQOut;
+	pQOut++;
+
+	if (pQOut >= evtQueue + KeybQLen)
+		pQOut = evtQueue;
+
+	//__enable_irq();
+	return true;
+
+#endif
+	return false;
+}
+```
