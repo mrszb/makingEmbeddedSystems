@@ -188,8 +188,8 @@ bool query_btn_event(BtnEvent* evt)
 ```
 
 Post class research:
-[^1] [^2] **ARM Interrupt Handler can be regular C routine**
-[^3] there is a lock-free implementation of ring buffer for single producer (interrupt handler) and single consumer (main) which I hope looks like my blinky (?)
+- [^1] [^2] **ARM Interrupt Handler can be regular C routine**
+- [^3] there is a lock-free implementation of ring buffer for single producer (interrupt handler) and single consumer (main) which I hope looks like my blinky (?)
 
 
 [^1]: [cpu docs](https://www.sciencedirect.com/topics/engineering/systick-interrupt)
