@@ -11,9 +11,10 @@ I do not have final board yet but I found "Blue Pill" board and tried my first A
 
 # Hardware
 Blue Pill - STM32F103C8 board
-Button (input) attached between Port/Pin C15 and GND, pulled up by external register
-Output Port/Pin C13 has attached external LED (against GND) and internal (against power)
-Output Port/Pin C13 .. attached oscilloscope for debugging
+
+- Button (input) attached between Port/Pin C15 and GND, pulled up by external register
+- Output Port/Pin C13 has attached external LED (against GND) and internal (against power)
+- Output Port/Pin C13 .. attached oscilloscope for debugging
 
 
 # Control Registers
