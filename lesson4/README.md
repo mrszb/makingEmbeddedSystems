@@ -7,18 +7,18 @@ What are the hardware registers that cause the LED to turn on and off? (From the
 
 I do not have final board yet but I found "Blue Pill" board and tried my first ARM bare metal programming ...
 
-[->see project repo here<-](https://github.com/mrszb/blue_pill_button_blinky)
+[**->see project repo here<-**](https://github.com/mrszb/blue_pill_button_blinky)
 
 # Hardware
 Blue Pill - STM32F103C8 board
 
-- Button (input) attached between Port/Pin C15 and GND, pulled up by external register
+- Button (input) connected between Port/Pin C15 and GND, pulled up by external resistor (could not figure out how to turn on the internal pull-up)
 - Output Port/Pin C13 has attached external LED (against GND) and internal (against power)
-- Output Port/Pin C13 .. attached oscilloscope for debugging
+- Output Port/Pin C14 .. attached oscilloscope for debugging
 
 
 # Control Registers
-originally I tried to put together memory mapped registers by adding offsets from the manual
+originally I tried to put together memory mapped registers by adding offsets from the manual ...
 
 ```
 //#define base_clock 0x40021000
@@ -38,7 +38,7 @@ originally I tried to put together memory mapped registers by adding offsets fro
 
 ```
 
-but there is better way:
+... but there is a better way:
 
 ```
 #define GPIOC_BASE      (PERIPH_BASE + 0x11000) // GPIOC base address is 0x40011000
@@ -55,11 +55,14 @@ typedef struct
 } GPIO_type;
 ```
 
-in main(void) of the [->main.c<-](https://github.com/mrszb/blue_pill_button_blinky/blob/main/Src/main.c)
-first set up Pin 15 as input Pins 13, 14 as output
-then init_systick setup interrupt handler to b ecalled every 1ms
+in main(void) of the [**->main.c<-**](https://github.com/mrszb/blue_pill_button_blinky/blob/main/Src/main.c)
+- set up Pin 15 as input 
+- Pins 13, 14 as output
+- init_systick setup interrupt handler to be called every 1ms
 
-I can sample the button state and see in debugger
+
+I can sample the button state and see it in the debugger:
+
 ```
 // get latest sample
 bool btn_fresh_sample = ((GPIOC->IDR & (1<<15)) == 0);
@@ -68,14 +71,14 @@ bool btn_fresh_sample = ((GPIOC->IDR & (1<<15)) == 0);
 ![image](./debug_sys_tick.png)
 
 # Debouncing
-Button is **sampled in 1ms intervals** (**btn_fresh_sample**) and values are stored in circular queue.
+Button is **sampled in 1ms intervals** (**btn_fresh_sample**) and values are stored in circular queue (ring buffer).
 
-First phase of **low pass filtering** is done by integration - doing **running_total** in the queue.
-The implemetation is quite efficient - it requires to bump totla up or down if sample into the queue not same value as oldest sample leaving the circular queue.
+First phase is **low pass filtering** done by integration - doing **running_total** of the values in the queue.
+The implemetation is quite efficient - it requires to bump running total up or down if sample into the queue is not  the same value as the oldest sample leaving the circular queue.
 
 Second phase is **hysteresis.**
-One need 2/3 of the samples indicating button down to register as button down event (running_total less than queue length/3)
-Once button considered pressed ne need 2/3 of the samples in queue indicating button down to register as button down event
+One need 2/3 of the samples of button down to register as button down event (running_total < queue_length/3)
+Once button is considered pressed one need at least 2/3 of the samples in queue button down to register as button down event
 
 ```
 //////////////////////////////////////////////////////////
@@ -167,7 +170,6 @@ bool query_btn_event(BtnEvent* evt)
 {
 #if GENERATES_EVENTS
 	// get oldest event out of keyboard queue
-	//__disable_irq();
 
 	if (pQOut == pQIn)
 		return false;
@@ -178,10 +180,21 @@ bool query_btn_event(BtnEvent* evt)
 	if (pQOut >= evtQueue + KeybQLen)
 		pQOut = evtQueue;
 
-	//__enable_irq();
 	return true;
 
 #endif
 	return false;
 }
 ```
+
+Post class research:
+[^1] [^2] **ARM Interrupt Handler can be regular C routine**
+[^3] there is a lock-free implementation of ring buffer for single producer (interrupt handler) and single consumer (main) which I hope looks like my blinky (?)
+
+
+[^1]: [cpu docs](https://www.sciencedirect.com/topics/engineering/systick-interrupt)
+
+[^2]: [The Definitive Guide to the ARM Cortex-M0](https://www.sciencedirect.com/book/9780123854773/the-definitive-guide-to-the-arm-cortex-m0
+
+[^3]: [Thread optimized Ring Buffer](http://landenlabs.com/code/ring/ring.html)
+
