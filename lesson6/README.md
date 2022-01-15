@@ -1,6 +1,6 @@
-#Souse Vide notes
+# Souse Vide notes
 
-#Minimal viable project:
+# Minimal viable project:
 [rice cooker](https://www.amazon.com/gp/product/B00197TJ3C/)
 
 controlled by STM32L1 Discovery kit
@@ -20,11 +20,12 @@ sample Arduino implementation is described here
 
 - first step port this to STM32L1 board
 - Alternative power control  (purchased already)
-Triac
-https://www.amazon.com/gp/product/B07QZ3K6TQ
 
-MOC3041 Integrated bidirectional Driver
-https://www.amazon.com/gp/product/B08VRMLKNK
+[Triac]
+(https://www.amazon.com/gp/product/B07QZ3K6TQ)
+
+[MOC3041 Integrated bidirectional Driver]
+(https://www.amazon.com/gp/product/B08VRMLKNK)
 
 this would enable the kit monitor AC power for zero crossing and switch on/off only some cycles
 
