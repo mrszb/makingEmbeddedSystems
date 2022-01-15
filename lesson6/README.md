@@ -1,19 +1,18 @@
 # Souse Vide notes
 
 # Minimal viable project:
-[rice cooker](https://www.amazon.com/gp/product/B00197TJ3C/)
+[rice cooker](https://www.amazon.com/gp/product/B00197TJ3C/) controlled by STM32L1 Discovery kit
 
-controlled by STM32L1 Discovery kit
 DS18B20 temp sensor
+
 is PDI control needed ?
-maybe hysteresis control possible within few 0.1C since water has huge thermal capacity
 
-have powertail switch to turn on off
-[Powertail]
-(https://www.adafruit.com/product/268)
+Maybe hysteresis control possible within few 0.1C since water has huge thermal capacity
+
+Using [Powertail] (https://www.adafruit.com/product/268) switch to turn on off
 
 
-sample Arduino implementation is described here
+Sample Arduino implementation is described here
 [Adafruit project](https://learn.adafruit.com/sous-vide-powered-by-arduino-the-sous-viduino)
 
  ![image](./adafruit_products_State_Diagram.png)
