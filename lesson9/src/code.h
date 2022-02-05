@@ -1,0 +1,1 @@
+int count_ones_a (u_int32_t);
